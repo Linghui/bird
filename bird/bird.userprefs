@@ -1,12 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/GroundController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/MenuBirdController.cs">
     <Files>
-      <File FileName="Assets/Script/CameraController.cs" Line="11" Column="3" />
-      <File FileName="Assets/Script/GameController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/GroundController.cs" Line="63" Column="53" />
-      <File FileName="Assets/Script/MenuBirdController.cs" Line="14" Column="33" />
-      <File FileName="Assets/Script/MovingLayerController.cs" Line="19" Column="49" />
+      <File FileName="../../EnchanterDefence/EnchanterDefence/Assets/Scripts/Tower/AreaController.cs" Line="68" Column="67" />
+      <File FileName="Assets/Script/CameraController.cs" Line="15" Column="28" />
+      <File FileName="Assets/Script/MovingLayerController.cs" Line="21" Column="2" />
+      <File FileName="Assets/Script/StartGame.cs" Line="20" Column="14" />
+      <File FileName="Assets/Script/GameController.cs" Line="29" Column="62" />
+      <File FileName="Assets/Script/MenuBirdController.cs" Line="32" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

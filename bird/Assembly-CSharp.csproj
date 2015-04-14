@@ -49,6 +49,7 @@
      <Compile Include="Assets\Script\CameraController.cs" />
      <Compile Include="Assets\Script\GameController.cs" />
      <Compile Include="Assets\Script\GroundController.cs" />
+     <Compile Include="Assets\Script\KickerController.cs" />
      <Compile Include="Assets\Script\MenuBirdController.cs" />
      <Compile Include="Assets\Script\MovingLayerController.cs" />
      <Compile Include="Assets\Script\StartGame.cs" />

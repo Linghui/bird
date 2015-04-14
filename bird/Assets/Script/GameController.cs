@@ -22,9 +22,12 @@ public class GameController : MonoBehaviour {
 		platform = Application.platform;
 		coverRender = cover.GetComponent<SpriteRenderer> ();
 
-		
-		jc = new AndroidJavaClass("com.wings.bird.UnityPlayerActivity");  
-		jo = jc.GetStatic<AndroidJavaObject>("currentActivity");  
+
+		if (platform == RuntimePlatform.Android) {
+			
+			jc = new AndroidJavaClass("com.wings.bird.UnityPlayerActivity");  
+			jo = jc.GetStatic<AndroidJavaObject>("currentActivity");  
+		}
 
 	}
 	
@@ -95,9 +98,13 @@ public class GameController : MonoBehaviour {
 		startEntering = true;
 	}
 
+	public void showAd(){
+		jo.Call("open"); 
+	}
+
 	public void closeAd(){
-		Debug.Log ("closeAd");
+
 		jo.Call("close"); 
-		Debug.Log ("closeAd End");
+
 	}
 }

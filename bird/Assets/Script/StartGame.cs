@@ -17,7 +17,7 @@ public class StartGame : MonoBehaviour {
 	
 	void Clicked(){
 		Debug.Log ("Clicked");
-//		gameController.enterGame ();
-		gameController.closeAd ();
+		gameController.enterGame ();
+//		gameController.closeAd ();
 	}
 }

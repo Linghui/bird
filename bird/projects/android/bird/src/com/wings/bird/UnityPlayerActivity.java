@@ -147,12 +147,18 @@ public class UnityPlayerActivity extends Activity {
 	}
 
 	void open() {
+		show = true;
 		handler.sendEmptyMessage(1);
+	}
+	
+	void close(){
+		show = false;
+		handler.sendEmptyMessage(2);
 	}
 
 	private boolean show = false;
 
-	void close() {
+	void toggle() {
 		if (show) {
 			handler.sendEmptyMessage(2);
 		} else {
@@ -161,6 +167,7 @@ public class UnityPlayerActivity extends Activity {
 		show = !show;
 
 	}
+	
 
 	void newAd() {
 
