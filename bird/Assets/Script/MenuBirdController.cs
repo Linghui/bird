@@ -4,8 +4,10 @@ using System.Collections;
 public class MenuBirdController : MonoBehaviour {
 
 	public GameObject bird;
+
 	private float timer;
 	private float y;
+
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +19,9 @@ public class MenuBirdController : MonoBehaviour {
 		timer += Time.deltaTime * 8;
 		float dis = Mathf.Sin (timer)/14;
 		bird.transform.position = new Vector2( bird.transform.position.x, y + dis);
+
+
+
 
 	}
 }
