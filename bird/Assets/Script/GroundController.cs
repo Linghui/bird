@@ -11,9 +11,9 @@ public class GroundController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		float height = Camera.main.orthographicSize;
-		Debug.Log ("screenWidthInPoints " + height);
+
 		screenWidthInPoints = height * Camera.main.aspect; 
-		Debug.Log ("screenWidthInPoints " + screenWidthInPoints);
+
 	}
 	
 	void Update () 
@@ -59,11 +59,11 @@ public class GroundController : MonoBehaviour {
 	
 	void AddRoom(float farhtestRoomEndX)
 	{
-		Debug.Log ("farhtestRoomEndX " + farhtestRoomEndX);
+
 		GameObject room = (GameObject)Instantiate(grounds);
 		
 		float roomWidth = room.transform.FindChild("floor").localScale.x;
-		Debug.Log ("roomWidth " + roomWidth);
+
 		float roomCenter = farhtestRoomEndX + roomWidth * 0.5f;
 		
 		room.transform.position = new Vector3(roomCenter, -2, 0);

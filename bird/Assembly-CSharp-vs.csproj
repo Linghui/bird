@@ -51,6 +51,7 @@
      <Compile Include="Assets\Script\GroundController.cs" />
      <Compile Include="Assets\Script\MenuBirdController.cs" />
      <Compile Include="Assets\Script\MovingLayerController.cs" />
+     <Compile Include="Assets\Script\StartGame.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
