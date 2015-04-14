@@ -25,7 +25,6 @@ public class MovingLayerController : MonoBehaviour {
 		newMovePosition.x = targetObjectX + distanceToTarget;
 		transform.position = newMovePosition;
 
-		
 		Vector3 newCameraPosition = camera.transform.position;
 		newCameraPosition.x = targetObjectX + distanceToTarget;
 		camera.transform.position = newCameraPosition;

@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
 
 	public string clickLayer;
 	public GameObject cover;
+	public AudioSource swoo;
 
 	private RuntimePlatform platform;
 	private SpriteRenderer coverRender;
@@ -72,7 +73,7 @@ public class GameController : MonoBehaviour {
 		Vector3 wp  = Camera.main.ScreenToWorldPoint(pos);
 		Vector2 touchPos  = new Vector2(wp.x, wp.y);
 		LayerMask mask = LayerMask.NameToLayer(clickLayer);
-		//		Debug.Log ("mask " + mask.value);
+				Debug.Log ("mask " + mask.value);
 		
 		
 		Collider2D[] hit = Physics2D.OverlapPointAll(touchPos);
@@ -80,7 +81,7 @@ public class GameController : MonoBehaviour {
 		if (hit != null && hit.Length > 0) {
 			
 			for(int index = 0; index < hit.Length ; index++){
-//				Debug.Log ("hit " + hit[index].gameObject.name);
+				Debug.Log ("hit " + hit[index].gameObject.name);
 				if(hit[index].gameObject.layer == mask.value){
 										
 					hit[index].transform.gameObject.SendMessage ("Clicked", 0, SendMessageOptions.DontRequireReceiver);
@@ -93,7 +94,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void enterGame(){
-		GetComponent<AudioSource> ().Play ();
+		swoo.Play ();
 		coverRender.material.color = new Color (1, 1, 1, 0);
 		startEntering = true;
 	}
@@ -107,4 +108,5 @@ public class GameController : MonoBehaviour {
 		jo.Call("close"); 
 
 	}
+
 }

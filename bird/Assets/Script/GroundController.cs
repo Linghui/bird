@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GroundController : MonoBehaviour {
-	
 	public GameObject grounds;
 	private float screenWidthInPoints; 
 	public List<GameObject> currentRooms;
