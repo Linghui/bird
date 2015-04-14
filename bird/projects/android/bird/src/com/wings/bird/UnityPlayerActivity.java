@@ -12,6 +12,8 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -24,8 +26,13 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 public class UnityPlayerActivity extends Activity {
+	protected static final String TAG = "UnityPlayerActivity";
 	protected UnityPlayer mUnityPlayer; // don't change the name of this
-										// variable; referenced from native code
+	private AdView adView;
+	// variable; referenced from native code
+	static UnityPlayerActivity currentActivity;
+
+	private Handler handler;
 
 	// Setup activity layout
 	@Override
@@ -45,47 +52,34 @@ public class UnityPlayerActivity extends Activity {
 		setContentView(mUnityPlayer);
 		mUnityPlayer.requestFocus();
 
-
 		AdManager.getInstance(this).init("629422a09d7597f5",
 				"3882476ea4b4d907", true);
-		
-//		SpotManager.getInstance(this).loadSpotAds();
-//		SpotManager.getInstance(this).setSpotOrientation(
-//	            SpotManager.ORIENTATION_PORTRAIT);
-//		SpotManager.getInstance(this).showSpotAds(this);
 
-		FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-				FrameLayout.LayoutParams.MATCH_PARENT,
-				FrameLayout.LayoutParams.WRAP_CONTENT);
-		// 设置广告条的悬浮位置
-		layoutParams.gravity = Gravity.TOP | Gravity.LEFT; // 这里示例为右下角
-		
-		// 实例化广告条
-		AdView adView = new AdView(this, AdSize.FIT_SCREEN);
+		// SpotManager.getInstance(this).loadSpotAds();
+		// SpotManager.getInstance(this).setSpotOrientation(
+		// SpotManager.ORIENTATION_PORTRAIT);
+		// SpotManager.getInstance(this).showSpotAds(this);
 
-		adView.setAdListener(new AdViewListener() {
+		currentActivity = this;
 
-			@Override
-			public void onSwitchedAd(AdView adView) {
-				// 切换广告并展示
-				Log.d("adView", "onSwitchedAd");
+		handler = new Handler() {
+			public void handleMessage(Message msg) {
+				switch (msg.what) {
+				case 1:
+					newAd();
+					break;
+				case 2:
+				default:
+					if (adView == null) {
+						Log.d(TAG, "adView null");
+						return;
+					}
+					adView.setVisibility(View.INVISIBLE);
+					adView = null;
+					break;
+				}
 			}
-
-			@Override
-			public void onReceivedAd(AdView adView) {
-				// 请求广告成功
-				Log.d("adView", "onReceivedAd");
-			}
-
-			@Override
-			public void onFailedToReceivedAd(AdView adView) {
-				// 请求广告失败
-				Log.d("adView", "onFailedToReceivedAd");
-			}
-		});
-		adView.setVisibility(View.VISIBLE);
-		// 调用 Activity 的 addContentView 函数
-		this.addContentView(adView, layoutParams);
+		};
 	}
 
 	// Quit Unity
@@ -150,5 +144,57 @@ public class UnityPlayerActivity extends Activity {
 
 	/* API12 */public boolean onGenericMotionEvent(MotionEvent event) {
 		return mUnityPlayer.injectEvent(event);
+	}
+
+	void open() {
+		handler.sendEmptyMessage(1);
+	}
+
+	private boolean show = false;
+
+	void close() {
+		if (show) {
+			handler.sendEmptyMessage(2);
+		} else {
+			handler.sendEmptyMessage(1);
+		}
+		show = !show;
+
+	}
+
+	void newAd() {
+
+		FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.MATCH_PARENT,
+				FrameLayout.LayoutParams.WRAP_CONTENT);
+		// 设置广告条的悬浮位置
+		layoutParams.gravity = Gravity.TOP | Gravity.LEFT; // 这里示例为右下角
+
+		// 实例化广告条
+		adView = new AdView(this, AdSize.FIT_SCREEN);
+
+		adView.setAdListener(new AdViewListener() {
+
+			@Override
+			public void onSwitchedAd(AdView adView) {
+				// 切换广告并展示
+				Log.d("adView", "onSwitchedAd");
+			}
+
+			@Override
+			public void onReceivedAd(AdView adView) {
+				// 请求广告成功
+				Log.d("adView", "onReceivedAd");
+			}
+
+			@Override
+			public void onFailedToReceivedAd(AdView adView) {
+				// 请求广告失败
+				Log.d("adView", "onFailedToReceivedAd");
+			}
+		});
+		// 调用 Activity 的 addContentView 函数
+		this.addContentView(adView, layoutParams);
+
 	}
 }

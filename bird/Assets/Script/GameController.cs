@@ -13,11 +13,18 @@ public class GameController : MonoBehaviour {
 	private RuntimePlatform platform;
 	private SpriteRenderer coverRender;
 	private bool startEntering = false;
+	
+	AndroidJavaClass jc;  
+	AndroidJavaObject jo;  
 
 	// Use this for initialization
 	void Start () {
 		platform = Application.platform;
 		coverRender = cover.GetComponent<SpriteRenderer> ();
+
+		
+		jc = new AndroidJavaClass("com.wings.bird.UnityPlayerActivity");  
+		jo = jc.GetStatic<AndroidJavaObject>("currentActivity");  
 
 	}
 	
@@ -86,5 +93,11 @@ public class GameController : MonoBehaviour {
 		GetComponent<AudioSource> ().Play ();
 		coverRender.material.color = new Color (1, 1, 1, 0);
 		startEntering = true;
+	}
+
+	public void closeAd(){
+		Debug.Log ("closeAd");
+		jo.Call("close"); 
+		Debug.Log ("closeAd End");
 	}
 }
