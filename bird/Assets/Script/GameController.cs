@@ -102,12 +102,17 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void showAd(){
-		jo.Call("open"); 
+		if(jo != null){
+			jo.Call("open"); 
+		}
+
 	}
 
 	public void closeAd(){
+		if(jo != null){
+			jo.Call("close"); 
+		}
 
-		jo.Call("close"); 
 
 	}
 

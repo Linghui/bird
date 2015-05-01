@@ -48,16 +48,25 @@ public class MenuBirdController : MonoBehaviour {
 			float dis = Mathf.Sin (timer) / 14;
 			bird.transform.position = new Vector2 (bird.transform.position.x, y + dis);
 		} else {
-			if(living){
+//			if(living){
 				
 				if (rigidbody2D.velocity.y > 0) {
-
+					Debug.Log ("ratation 3 " + transform.rotation.eulerAngles);
+					Debug.Log ("ratation 4 " + transform.rotation.eulerAngles.z);
 				} else 
 				{
-					transform.Rotate(new Vector3(0,0,-90) * Mathf.Abs(rigidbody2D.velocity.y)/100);
+					float angle = transform.rotation.eulerAngles.z;
+					if(angle > 180){
+						angle -= 360;
+					}
 
+					if(angle > -90f){
+						transform.Rotate(new Vector3(0,0,-90f) * Time.deltaTime * 3);
+						Debug.Log ("ratation 1 " + transform.rotation.eulerAngles);
+						Debug.Log ("ratation 2 " + transform.rotation.eulerAngles.z);
+					}
 				}
-			}
+//			}
 		}
 	}
 
