@@ -32,7 +32,7 @@ public class SmallNumberController : MonoBehaviour {
 			}
 			
 			
-			for(int index = 0; index < number.Length; index++){
+			for(int index = number.Length - 1; index >= 0; index--){
 				Debug.Log("create");
 				string single = number.Substring(index, 1);
 				int singleNum = int.Parse(single);
@@ -43,7 +43,7 @@ public class SmallNumberController : MonoBehaviour {
 				numObj.GetComponent<SpriteRenderer>().sortingOrder = 5;
 				numObj.transform.SetParent(transform);
 				
-				numObj.transform.position =  new Vector3(index * 0.1f + transform.position.x, transform.position.y,0);
+				numObj.transform.position =  new Vector3((number.Length - index - 1) * -0.15f + transform.position.x, transform.position.y,0);
 				
 				liveNumber.Add(numObj);
 			}
