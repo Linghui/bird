@@ -98,6 +98,7 @@ public class GameController : MonoBehaviour {
 		swoo.Play ();
 		coverRender.material.color = new Color (1, 1, 1, 0);
 		startEntering = true;
+		closeAd ();
 	}
 
 	public void showAd(){

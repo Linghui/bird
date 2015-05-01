@@ -10,7 +10,9 @@ public class KickerController : MonoBehaviour {
 	public AudioSource die;
 	public AudioSource swoo;
 	public AudioSource point;
-	
+
+	public GameController gameController;
+
 	public GameObject title;
 	public GameObject tip;
 	
@@ -121,6 +123,7 @@ public class KickerController : MonoBehaviour {
 		hit.Play ();
 		board.GetComponent<BoardController> ().show (totalPoint);
 		Destroy (score);
+		gameController.showAd ();
 	}
 
 	public GameObject overTitle;

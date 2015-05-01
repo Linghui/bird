@@ -40,7 +40,7 @@ public class SmallNumberController : MonoBehaviour {
 				GameObject numObj = Instantiate(numberPre) as GameObject;
 				
 				numObj.GetComponent<SpriteRenderer>().sortingLayerName = "ui";
-				numObj.GetComponent<SpriteRenderer>().sortingOrder = 10;
+				numObj.GetComponent<SpriteRenderer>().sortingOrder = 5;
 				numObj.transform.SetParent(transform);
 				
 				numObj.transform.position =  new Vector3(index * 0.1f + transform.position.x, transform.position.y,0);
