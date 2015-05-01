@@ -11,14 +11,13 @@ public class BoardController : MonoBehaviour {
 		finalScore.GetComponent<SmallNumberController> ().showNumber (score+"");
 
 
-		int bestScore = PlayerPrefs.GetInt ("best");
-		Debug.Log ("best score " + bestScore);
+		int bestScore = PlayerPrefs.GetInt ("best score");
 
 		if (score > bestScore) {
-			PlayerPrefs.SetInt ("best", bestScore);
+			PlayerPrefs.SetInt ("best score", score);
 			PlayerPrefs.Save();
 			best.GetComponent<SmallNumberController> ().showNumber (score + "");
-
+			newBestIcon.SetActive(true);
 		} else {
 			best.GetComponent<SmallNumberController> ().showNumber (bestScore + "");
 		}
