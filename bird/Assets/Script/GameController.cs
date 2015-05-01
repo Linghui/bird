@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour {
 	public string clickLayer;
 	public GameObject cover;
 	public AudioSource swoo;
-
+		
 	private RuntimePlatform platform;
 	private SpriteRenderer coverRender;
 	private bool startEntering = false;
@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour {
 			jo = jc.GetStatic<AndroidJavaObject>("currentActivity");  
 		}
 
+
 	}
 	
 	// Update is called once per frame
@@ -37,7 +38,7 @@ public class GameController : MonoBehaviour {
 		if (startEntering) {
 			coverRender.material.color += new Color(0, 0, 0, 2f) * Time.deltaTime;
 
-			Debug.Log ("color " + coverRender.material.color);
+//			Debug.Log ("color " + coverRender.material.color);
 			if(coverRender.material.color.a > 1){
 				Application.LoadLevel("GameScene");
 			}
@@ -73,7 +74,7 @@ public class GameController : MonoBehaviour {
 		Vector3 wp  = Camera.main.ScreenToWorldPoint(pos);
 		Vector2 touchPos  = new Vector2(wp.x, wp.y);
 		LayerMask mask = LayerMask.NameToLayer(clickLayer);
-				Debug.Log ("mask " + mask.value);
+//				Debug.Log ("mask " + mask.value);
 		
 		
 		Collider2D[] hit = Physics2D.OverlapPointAll(touchPos);
@@ -81,7 +82,7 @@ public class GameController : MonoBehaviour {
 		if (hit != null && hit.Length > 0) {
 			
 			for(int index = 0; index < hit.Length ; index++){
-				Debug.Log ("hit " + hit[index].gameObject.name);
+//				Debug.Log ("hit " + hit[index].gameObject.name);
 				if(hit[index].gameObject.layer == mask.value){
 										
 					hit[index].transform.gameObject.SendMessage ("Clicked", 0, SendMessageOptions.DontRequireReceiver);

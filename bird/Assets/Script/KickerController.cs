@@ -9,6 +9,7 @@ public class KickerController : MonoBehaviour {
 	public AudioSource hit;
 	public AudioSource die;
 	public AudioSource swoo;
+	public AudioSource point;
 	
 	public GameObject title;
 	public GameObject tip;
@@ -18,12 +19,14 @@ public class KickerController : MonoBehaviour {
 	private bool isGameOver = false;
 	private RuntimePlatform platform;
 	private bool startKicking = false;
+	private SpriteRenderer rend;
 	
 	// Use this for initialization
 	private Rigidbody2D rigidbody2D;
 	void Start () {
 		platform = Application.platform;
 		rigidbody2D = target.GetComponent<Rigidbody2D> ();
+		rend = overTitle.GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -38,9 +41,9 @@ public class KickerController : MonoBehaviour {
 				
 				shakeTime -= Time.deltaTime;
 				float rx = Random.Range(-0.1f,0.1f);
-				float ry = Random.Range(-0.1f,0.1f);
+				float ry = Random.Range(-0.05f,0.05f);
 				
-				Camera.main.transform.position = cameraP + new Vector3(rx,rx,0);
+				Camera.main.transform.position = cameraP + new Vector3(rx,ry,0);
 			} else {
 				showDialog();
 			}
@@ -116,18 +119,17 @@ public class KickerController : MonoBehaviour {
 		
 		isGameOver = true;
 		hit.Play ();
+		board.GetComponent<BoardController> ().show (totalPoint);
+		Destroy (score);
 	}
-	
-	private bool dialogShown = false;
+
 	public GameObject overTitle;
 	public GameObject board;
 	public GameObject btn;
-	public float dialogTimer = 0;
+	private float dialogTimer = 0;
 	void showDialog(){
-		//		if(!dialogShown){
-		//			dialogShown = true;
+
 		dialogTimer += Time.deltaTime;
-		SpriteRenderer rend = overTitle.GetComponent<SpriteRenderer>();
 		
 		if(!overTitle.activeSelf){
 			swoo.Play ();
@@ -136,11 +138,11 @@ public class KickerController : MonoBehaviour {
 		overTitle.SetActive (true);
 		
 		if(overTitle.activeSelf && rend.material.color.a < 1){
-			Debug.Log("fade in " + rend.material.color);
+
 			rend.material.color += new Color(0, 0, 0, 1f) * Time.deltaTime;
 		}
 		if(rend.material.color.a > 1 && board.transform.position.y < 0 && dialogTimer > 1f){
-			
+
 			if(!board.activeSelf){
 				swoo.Play ();
 				btn.SetActive(true);
@@ -149,14 +151,26 @@ public class KickerController : MonoBehaviour {
 			
 			board.transform.position += new Vector3(0,1f,0) * Time.deltaTime * 20;
 		}
-		
-		
-		//		}
+
 	}
 	
 	private Vector3 cameraP;
 	private float shakeTime = 0.3f;
 	void shakeCamera(){
 		cameraP = Camera.main.transform.position;
+	}
+
+	
+	public GameObject score;
+	private int totalPoint = 0;
+
+
+	public void getPoint(){
+		point.Play ();
+		totalPoint++;
+		if(score != null){
+			score.GetComponent<numberController> ().showNumber (totalPoint + "");
+		}
+
 	}
 }

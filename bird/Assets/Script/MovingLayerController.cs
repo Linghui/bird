@@ -5,6 +5,7 @@ public class MovingLayerController : MonoBehaviour {
 	
 	public GameObject targetObject;
 	public Camera camera;
+	public GameObject score;
 //	public float forwardMovementSpeed;
 
 	private Rigidbody2D rigidbody2D;
@@ -28,5 +29,10 @@ public class MovingLayerController : MonoBehaviour {
 		Vector3 newCameraPosition = camera.transform.position;
 		newCameraPosition.x = targetObjectX + distanceToTarget;
 		camera.transform.position = newCameraPosition;
+
+		
+//		Vector3 newScorePosition = score.transform.position;
+//		newScorePosition.x = targetObjectX + distanceToTarget;
+//		score.transform.position = newScorePosition;
 	}
 }
