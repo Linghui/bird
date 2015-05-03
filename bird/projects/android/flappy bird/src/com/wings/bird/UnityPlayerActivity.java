@@ -1,19 +1,25 @@
 package com.wings.bird;
 
+import java.util.UUID;
+
 import net.youmi.android.AdManager;
 import net.youmi.android.banner.AdSize;
 import net.youmi.android.banner.AdView;
 import net.youmi.android.banner.AdViewListener;
 import net.youmi.android.spot.SpotManager;
 
+import com.umeng.analytics.game.UMGameAgent;
 import com.unity3d.player.*;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -36,6 +42,8 @@ public class UnityPlayerActivity extends Activity {
 
 	public static int showCounter = 0;
 	public static int spotShowLimit = 10;
+
+	private int timeCounter = 0;
 
 	// Setup activity layout
 	@Override
@@ -85,13 +93,24 @@ public class UnityPlayerActivity extends Activity {
 				}
 			}
 		};
+
+		// 设置输出运行时日志
+		UMGameAgent.setDebugMode(true);
+		UMGameAgent.init(this);
+
+		UMGameAgent.onProfileSignIn(getUid());
+		
+//		Log.d(TAG, " getDeviceInfo(this) " +  getDeviceInfo(this));
+		
 	}
 
 	// Quit Unity
 	@Override
 	protected void onDestroy() {
 		mUnityPlayer.quit();
+		UMGameAgent.onProfileSignOff();
 		super.onDestroy();
+
 	}
 
 	// Pause Unity
@@ -99,6 +118,7 @@ public class UnityPlayerActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		mUnityPlayer.pause();
+		UMGameAgent.onPause(this);
 	}
 
 	// Resume Unity
@@ -106,6 +126,7 @@ public class UnityPlayerActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		mUnityPlayer.resume();
+		UMGameAgent.onResume(this);
 	}
 
 	// This ensures the layout will be correct.
@@ -186,6 +207,8 @@ public class UnityPlayerActivity extends Activity {
 	}
 
 	void newAd() {
+		timeCounter++;
+		UMGameAgent.setPlayerLevel(timeCounter);
 
 		FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
 				FrameLayout.LayoutParams.MATCH_PARENT,
@@ -220,4 +243,55 @@ public class UnityPlayerActivity extends Activity {
 		this.addContentView(adView, layoutParams);
 
 	}
+
+	private String getUid() {
+		final TelephonyManager tm = (TelephonyManager) getBaseContext()
+				.getSystemService(Context.TELEPHONY_SERVICE);
+
+		final String tmDevice, tmSerial, androidId;
+		tmDevice = "" + tm.getDeviceId();
+		tmSerial = "" + tm.getSimSerialNumber();
+		androidId = ""
+				+ android.provider.Settings.Secure.getString(
+						getContentResolver(),
+						android.provider.Settings.Secure.ANDROID_ID);
+
+		UUID deviceUuid = new UUID(androidId.hashCode(),
+				((long) tmDevice.hashCode() << 32) | tmSerial.hashCode());
+		String deviceId = deviceUuid.toString();
+		return deviceId;
+	}
+	
+	
+//	public static String getDeviceInfo(Context context) {
+//	    try{
+//	      org.json.JSONObject json = new org.json.JSONObject();
+//	      android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context
+//	          .getSystemService(Context.TELEPHONY_SERVICE);
+//
+//	      String device_id = tm.getDeviceId();
+//
+//	      android.net.wifi.WifiManager wifi = (android.net.wifi.WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+//
+//	      String mac = wifi.getConnectionInfo().getMacAddress();
+//	      json.put("mac", mac);
+//
+//	      if( TextUtils.isEmpty(device_id) ){
+//	        device_id = mac;
+//	      }
+//
+//	      if( TextUtils.isEmpty(device_id) ){
+//	        device_id = android.provider.Settings.Secure.getString(context.getContentResolver(),android.provider.Settings.Secure.ANDROID_ID);
+//	      }
+//
+//	      json.put("device_id", device_id);
+//
+//	      return json.toString();
+//	    }catch(Exception e){
+//	      e.printStackTrace();
+//	    }
+//	  return null;
+//	}
 }
+
+
