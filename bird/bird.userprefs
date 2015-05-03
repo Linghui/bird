@@ -1,11 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/GameController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/SmallNumberController.cs">
     <Files>
-      <File FileName="Assets/Script/KickerController.cs" Line="120" Column="51" />
-      <File FileName="Assets/Script/BoardController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/numberController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/GameController.cs" Line="76" Column="54" />
+      <File FileName="Assets/Script/MenuBirdController.cs" Line="69" Column="7" />
+      <File FileName="Assets/Script/GameController.cs" Line="93" Column="27" />
+      <File FileName="Assets/Script/SmallNumberController.cs" Line="46" Column="81" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

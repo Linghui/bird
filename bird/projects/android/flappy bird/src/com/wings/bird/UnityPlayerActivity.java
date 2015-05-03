@@ -33,6 +33,9 @@ public class UnityPlayerActivity extends Activity {
 	static UnityPlayerActivity currentActivity;
 
 	private Handler handler;
+	
+	public static int showCounter = 0;
+	public static int spotShowLimit = 15;
 
 	// Setup activity layout
 	@Override
@@ -53,12 +56,11 @@ public class UnityPlayerActivity extends Activity {
 		mUnityPlayer.requestFocus();
 
 		AdManager.getInstance(this).init("629422a09d7597f5",
-				"3882476ea4b4d907", true);
+				"3882476ea4b4d907", false);
 
-		// SpotManager.getInstance(this).loadSpotAds();
-		// SpotManager.getInstance(this).setSpotOrientation(
-		// SpotManager.ORIENTATION_PORTRAIT);
-		// SpotManager.getInstance(this).showSpotAds(this);
+		 SpotManager.getInstance(this).loadSpotAds();
+		 SpotManager.getInstance(this).setSpotOrientation(
+		 SpotManager.ORIENTATION_PORTRAIT);
 
 		currentActivity = this;
 
@@ -69,6 +71,9 @@ public class UnityPlayerActivity extends Activity {
 					newAd();
 					break;
 				case 2:
+					wall();
+					break;
+				case 0:
 				default:
 					if (adView == null) {
 						Log.d(TAG, "adView null");
@@ -148,12 +153,20 @@ public class UnityPlayerActivity extends Activity {
 
 	void open() {
 		show = true;
-		handler.sendEmptyMessage(1);
+		
+		if(showCounter < spotShowLimit){
+			handler.sendEmptyMessage(1);	
+		} else {
+			showCounter= 0;
+			handler.sendEmptyMessage(2);
+		}
+		
+		showCounter++;
 	}
 	
 	void close(){
 		show = false;
-		handler.sendEmptyMessage(2);
+		handler.sendEmptyMessage(0);
 	}
 
 	private boolean show = false;
@@ -168,7 +181,10 @@ public class UnityPlayerActivity extends Activity {
 
 	}
 	
-
+	void wall(){
+		SpotManager.getInstance(this).showSpotAds(this);
+	}
+	
 	void newAd() {
 
 		FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
