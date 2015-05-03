@@ -144,15 +144,21 @@ public class KickerController : MonoBehaviour {
 
 			rend.material.color += new Color(0, 0, 0, 1f) * Time.deltaTime;
 		}
-		if(rend.material.color.a > 1 && board.transform.position.y < 0 && dialogTimer > 1f){
+		if(rend.material.color.a > 1 && dialogTimer > 1f){
 
 			if(!board.activeSelf){
 				swoo.Play ();
 				btn.SetActive(true);
 			}
 			board.SetActive(true);
-			
-			board.transform.position += new Vector3(0,1f,0) * Time.deltaTime * 20;
+
+			if(board.transform.position.y < 0.1f){
+				board.transform.position += new Vector3(0,1f,0) * Time.deltaTime * 20;
+			} else {
+				board.transform.position = new Vector3(board.transform.position.x,0.2f,0);
+			}
+
+
 		}
 
 	}

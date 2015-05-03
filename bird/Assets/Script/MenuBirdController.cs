@@ -47,12 +47,14 @@ public class MenuBirdController : MonoBehaviour {
 			timer += Time.deltaTime * 8;
 			float dis = Mathf.Sin (timer) / 14;
 			bird.transform.position = new Vector2 (bird.transform.position.x, y + dis);
+
+
 		} else {
 //			if(living){
 				
 				if (rigidbody2D.velocity.y > 0) {
-					Debug.Log ("ratation 3 " + transform.rotation.eulerAngles);
-					Debug.Log ("ratation 4 " + transform.rotation.eulerAngles.z);
+//					Debug.Log ("ratation 3 " + transform.rotation.eulerAngles);
+//					Debug.Log ("ratation 4 " + transform.rotation.eulerAngles.z);
 				} else 
 				{
 					float angle = transform.rotation.eulerAngles.z;
@@ -62,8 +64,8 @@ public class MenuBirdController : MonoBehaviour {
 
 					if(angle > -90f){
 						transform.Rotate(new Vector3(0,0,-90f) * Time.deltaTime * 3);
-						Debug.Log ("ratation 1 " + transform.rotation.eulerAngles);
-						Debug.Log ("ratation 2 " + transform.rotation.eulerAngles.z);
+//						Debug.Log ("ratation 1 " + transform.rotation.eulerAngles);
+//						Debug.Log ("ratation 2 " + transform.rotation.eulerAngles.z);
 					}
 				}
 //			}
@@ -84,5 +86,6 @@ public class MenuBirdController : MonoBehaviour {
 		startPlaying = true;
 		rigidbody2D.isKinematic = false;
 
+		GetComponent<Animator>().speed= 2;
 	}
 }

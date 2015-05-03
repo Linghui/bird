@@ -15,8 +15,8 @@ public class GameController : MonoBehaviour {
 	private SpriteRenderer coverRender;
 	private bool startEntering = false;
 	
-//	AndroidJavaClass jc;  
-//	AndroidJavaObject jo;  
+	AndroidJavaClass jc;  
+	AndroidJavaObject jo;  
 
 	// Use this for initialization
 	void Start () {
@@ -24,11 +24,11 @@ public class GameController : MonoBehaviour {
 		coverRender = cover.GetComponent<SpriteRenderer> ();
 
 
-//		if (platform == RuntimePlatform.Android) {
-//			
-//			jc = new AndroidJavaClass("com.wings.bird.UnityPlayerActivity");  
-//			jo = jc.GetStatic<AndroidJavaObject>("currentActivity");  
-//		}
+		if (platform == RuntimePlatform.Android) {
+			
+			jc = new AndroidJavaClass("com.wings.bird.UnityPlayerActivity");  
+			jo = jc.GetStatic<AndroidJavaObject>("currentActivity");  
+		}
 
 
 	}
@@ -102,16 +102,16 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void showAd(){
-//		if(jo != null){
-//			jo.Call("open"); 
-//		}
+		if(jo != null){
+			jo.Call("open"); 
+		}
 
 	}
 
 	public void closeAd(){
-//		if(jo != null){
-//			jo.Call("close"); 
-//		}
+		if(jo != null){
+			jo.Call("close"); 
+		}
 
 
 	}
